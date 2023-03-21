@@ -17,7 +17,7 @@ const auth = async (req, res, next) => {
       config.security.jwt.secret
     )
 
-    const user = await UserModel.findOne({ _id: payload })
+    const user = await UserModel.findOne({ _id: payload.userId })
 
     if (!user) {
       res.status(403).send({ error: "Forbidden" })

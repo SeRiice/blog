@@ -11,7 +11,9 @@ const Button = (props) => {
   return (
     <button
       className={clsx(
-        "rounded-lg font-semibold text-center text-white py-2",
+        variant === "none"
+          ? ""
+          : "rounded-lg font-semibold text-center text-white py-2",
         variants[variant]
       )}
       {...otherProps}

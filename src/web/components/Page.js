@@ -1,6 +1,8 @@
+import AppContext from "@/web/components/AppContext"
 import CustomLink from "@/web/components/CustomLink"
 import clsx from "clsx"
 import Image from "next/image"
+import { useContext } from "react"
 
 const variants = {
   lg: "max-w-3xl",
@@ -11,12 +13,17 @@ const variants = {
 const titleCss = "text-2xl font-semibold"
 
 const Page = (props) => {
-  const { children, title, variant = "lg" } = props
+  const {
+    state: { session },
+    actions: { signOut },
+  } = useContext(AppContext)
+
+  const { children, title, variant = "md" } = props
 
   return (
     <div>
       <header className=" sticky top-0 border-b p-4 bg-white">
-        <div className="flex justify-between max-w-3xl mx-auto items-center">
+        <div className="flex justify-between max-w-xl mx-auto items-center">
           <div className="flex gap-4 items-center">
             <Image
               src="/img/profile.png"
@@ -31,12 +38,24 @@ const Page = (props) => {
           </div>
           <nav>
             <ul className="flex gap-4">
-              <li>
-                <CustomLink href="/sign-in">Sign-in</CustomLink>
-              </li>
-              <li>
-                <CustomLink href="/sign-up">Sign-up</CustomLink>
-              </li>
+              {session ? (
+                <>
+                  <li>
+                    <button className="hover:underline" onClick={signOut}>
+                      Sign-out
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <CustomLink href="/sign-in">Sign-in</CustomLink>
+                  </li>
+                  <li>
+                    <CustomLink href="/sign-up">Sign-up</CustomLink>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </div>

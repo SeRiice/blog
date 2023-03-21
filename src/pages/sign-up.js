@@ -3,6 +3,7 @@ import Form from "@/web/components/Form"
 import FormField from "@/web/components/FormField"
 import Page from "@/web/components/Page"
 import api from "@/web/services/api"
+import { useRouter } from "next/router"
 import * as yup from "yup"
 
 const initialValues = {
@@ -18,9 +19,12 @@ const validationSchema = yup.object().shape({
 })
 
 const SignUpPage = () => {
+  const router = useRouter()
+
   const handleSubmit = async (values, { resetForm }) => {
     try {
       await api.post("/sign-up", values)
+      router.push("/sign-in")
     } finally {
       resetForm()
     }

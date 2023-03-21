@@ -3,7 +3,6 @@ import log from "@/api/middlewares/log.js"
 import mongoose from "mongoose"
 
 const mw = (handlersByMethod) => async (req, res) => {
-  console.log("ok ok ok")
   const { method } = req
   const handlers = handlersByMethod[method]
 
